@@ -16,15 +16,13 @@ function Timeline() {
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
             contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="2022 - present"
+            date="2024 - present"
             iconStyle={{ background: '#ff8c00', color: 'rgb(34, 37, 40)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Technology Consultant</h3>
-            <h4 className="vertical-timeline-element-subtitle">Dallas, TX</h4>
-            <p>
-              Full-stack Web Development, GenAI/LLM, Project Management, Business Development
-            </p>
+            <h3 className="vertical-timeline-element-title">Software Developer</h3>
+            <h4 className="vertical-timeline-element-subtitle">Apollo Tecnologies</h4>
+            <p>Part of the retail solutions team, focusing on the development and enhancement of point-of-sale (POS) and backend systems. Responsible for implementing new features, resolving bugs, and optimizing performance to support daily retail operations across multiple store locations. Collaborated closely with QA, product, and infrastructure teams to ensure stable and efficient software deployment.</p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"

@@ -7,8 +7,8 @@ function Footer() {
   return (
     <footer>
       <div>
-        <a href="https://github.com/yujisatojr" target="_blank" rel="noreferrer"><GitHubIcon/></a>
-        <a href="https://www.linkedin.com/in/yujisato/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
+        <a href="" target="_blank" rel="noreferrer"><GitHubIcon/></a>
+        <a href="https://www.linkedin.com/in/johnlloyd-macalino-b795a6286/" target="_blank" rel="noreferrer"><LinkedInIcon/></a>
       </div>
       <p>© 2025 John Lloyd. All rights reserved.</p>
     </footer>

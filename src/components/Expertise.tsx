@@ -18,6 +18,9 @@ const labelsFirst = [
     "Java",
     "Spring Boot",
     "C++",
+    "React",
+    "PHP",
+    "Laravel Framework",
 ];
 
 const labelsSecond = [
@@ -27,6 +30,7 @@ const labelsSecond = [
     "Linux",
     "Cypress",
     "jest",
+    "PHPUnit",
 ];
 
 const labelsThird = [
@@ -68,7 +72,7 @@ function Expertise() {
                         ))}
                     </div>
                 </div>
-
+{/* 
                 <div className="skill">
                     <FontAwesomeIcon icon={faPython} size="3x"/>
                     <h3>GenAI & LLM</h3>
@@ -79,7 +83,7 @@ function Expertise() {
                             <Chip key={index} className='chip' label={label} />
                         ))}
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>

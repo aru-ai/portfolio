@@ -54,7 +54,7 @@ function Contact() {
       <div className="items-container">
         <div className="contact_wrapper">
           <h1>Contact Me</h1>
-          <p>Got a project waiting to be realized? Let's collaborate and make it happen!</p>
+          <p>Got a project waiting to be realized? Let's collaborate and make it happen! You can also email me at <a href="mailto:johnlloydenciomacalino07@gmail.com">johnlloydenciomacalino07@gmail.com</a>.</p>
           <Box
             ref={form}
             component="form"

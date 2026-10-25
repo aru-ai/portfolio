@@ -41,8 +41,7 @@ function Timeline() {
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">Freelance Full-Stack Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Freelance Clients</h4>
-            <p>Build and maintain CRM portals for Collings using React and Django. Build and customize WordPress (Elementor) websites, landing pages, and Shopify stores, and develop REST APIs and database-backed features for managing customer records and user access.</p>
+            <p>Build and maintain CRM portals for clients using React and Django. Build and customize WordPress (Elementor) websites, landing pages, and Shopify stores, and develop REST APIs and database-backed features for managing customer records and user access.</p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--education"

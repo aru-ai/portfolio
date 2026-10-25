@@ -18,13 +18,35 @@
     color: white;
   }
 
-  fieldset {
-    background-color: white;
+  .MuiFilledInput-root {
+    background-color: white !important;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
+  }
+
+  .MuiFilledInput-root.Mui-focused {
+    border-color: #5000ca;
+  }
+
+  .MuiFilledInput-root.Mui-error {
+    border-color: #d32f2f;
+  }
+
+  .MuiInputLabel-root.Mui-focused:not(.Mui-error) {
+    color: #5000ca;
+  }
+
+  .MuiFormHelperText-root {
+    margin-left: 2px;
+  }
+
+  .form-status {
+    margin-bottom: 15px;
   }
 }
 
 label {
-  font-size: 1.2rem;
   font-family: 'DomaineDispNar-Medium', sans-serif;
 }
 

@@ -10,6 +10,7 @@ import mock08 from '../assets/images/mock08.png';
 import mock09 from '../assets/images/mock09.png';
 import mock10 from '../assets/images/mock10.png';
 import mock11 from '../assets/images/opalengke.png'
+import collings from '../assets/images/collings.png';
 import '../assets/styles/Project.scss';
 
 function Project() {
@@ -17,6 +18,11 @@ function Project() {
     <div className="projects-container" id="projects">
         <h1>Projects</h1>
         <div className="projects-grid">
+            <div className="project">
+                <a href="https://selfmanaged.collings.com.au/" target="_blank" rel="noreferrer"><img src={collings} className="zoom" alt="thumbnail" width="100%"/></a>
+                <a href="https://selfmanaged.collings.com.au/" target="_blank" rel="noreferrer"><h2>Collings Self Management Portal</h2></a>
+                <p>A self-service account portal for Collings Real Estate that gives rental providers, renters, tradespeople, and service providers their own dedicated portals for managing properties, paying rent, logging maintenance requests, and handling job bookings and invoices. The system is made up of React frontends behind a Node.js gateway, with two Django backends powering the REST APIs and database-backed features for customer records and user access.</p>
+            </div>
             <div className="project">
                 <a href="https://opalengke.com/" target="_blank" rel="noreferrer"><img src={mock11} className="zoom" alt="thumbnail" width="100%"/></a>
                 <a href="https://opalengke.com/" target="_blank" rel="noreferrer"><h2>Opalengke</h2></a>

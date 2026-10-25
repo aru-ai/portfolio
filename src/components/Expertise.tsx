@@ -1,7 +1,8 @@
 import React from "react";
 import '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faJava, faReact, faDocker, faWordpress } from '@fortawesome/free-brands-svg-icons';
+import { faJava, faReact, faDocker } from '@fortawesome/free-brands-svg-icons';
+import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import Chip from '@mui/material/Chip';
 import '../assets/styles/Expertise.scss';
 
@@ -33,6 +34,9 @@ const labelsSecond = [
     "HTML",
     "CSS",
     "SASS",
+    "WordPress",
+    "Elementor",
+    "Shopify",
 ];
 
 const labelsThird = [
@@ -45,16 +49,15 @@ const labelsThird = [
     "Ubuntu Linux",
     "Git/GitHub",
     "GitHub Actions",
-    "Claude AI",
-    "OpenAI Codex",
-    "GitHub Copilot",
-    "ChatGPT",
 ];
 
 const labelsFourth = [
-    "WordPress",
-    "Elementor",
-    "Shopify",
+    "Claude Code",
+    "Claude AI",
+    "Model Context Protocol (MCP)",
+    "OpenAI Codex",
+    "GitHub Copilot",
+    "ChatGPT",
 ];
 
 function Expertise() {
@@ -77,8 +80,8 @@ function Expertise() {
 
                 <div className="skill">
                     <FontAwesomeIcon icon={faReact} size="3x"/>
-                    <h3>Frontend Development</h3>
-                    <p>I build responsive, user-friendly interfaces with React, Vue.js, and the Quasar Framework, and connect them cleanly to backend APIs to deliver complete, end-to-end features.</p>
+                    <h3>Frontend, CMS & E-commerce</h3>
+                    <p>I build responsive, user-friendly interfaces with React, Vue.js, and the Quasar Framework, and connect them cleanly to backend APIs to deliver complete, end-to-end features. For freelance clients, I also build and customize WordPress (Elementor) websites, landing pages, and Shopify stores.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsSecond.map((label, index) => (
@@ -89,8 +92,8 @@ function Expertise() {
 
                 <div className="skill">
                     <FontAwesomeIcon icon={faDocker} size="3x"/>
-                    <h3>Testing, DevOps & AI Tools</h3>
-                    <p>I improve release reliability with automated unit, integration, and end-to-end tests, and containerize and deploy applications with Docker on Linux. I also use AI coding tools to ship features faster.</p>
+                    <h3>Testing & DevOps</h3>
+                    <p>I improve release reliability with automated unit, integration, and end-to-end tests, and containerize and deploy applications with Docker on Linux.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsThird.map((label, index) => (
@@ -100,9 +103,9 @@ function Expertise() {
                 </div>
 
                 <div className="skill">
-                    <FontAwesomeIcon icon={faWordpress} size="3x"/>
-                    <h3>CMS & E-commerce</h3>
-                    <p>For freelance clients, I build and customize WordPress (Elementor) websites, landing pages, and Shopify stores, working directly with them to gather requirements and deliver regular updates.</p>
+                    <FontAwesomeIcon icon={faRobot} size="3x"/>
+                    <h3>AI-Assisted Development</h3>
+                    <p>I use AI coding agents like Claude Code as part of my daily workflow to ship features faster, from scaffolding and refactoring to writing tests. I also work with the Model Context Protocol (MCP) to connect AI tools to external services and data sources.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsFourth.map((label, index) => (

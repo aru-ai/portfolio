@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import '../assets/styles/Contact.scss';
-// import emailjs from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
@@ -18,6 +19,8 @@ function Contact() {
 
   const form = useRef();
 
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
   const sendEmail = (e: any) => {
     e.preventDefault();
 
@@ -25,28 +28,34 @@ function Contact() {
     setEmailError(email === '');
     setMessageError(message === '');
 
-    /* Uncomment below if you want to enable the emailJS */
+    if (name === '' || email === '' || message === '') {
+      return;
+    }
 
-    // if (name !== '' && email !== '' && message !== '') {
-    //   var templateParams = {
-    //     name: name,
-    //     email: email,
-    //     message: message
-    //   };
+    const templateParams = {
+      name: name,
+      email: email,
+      message: message
+    };
 
-    //   console.log(templateParams);
-    //   emailjs.send('service_id', 'template_id', templateParams, 'api_key').then(
-    //     (response) => {
-    //       console.log('SUCCESS!', response.status, response.text);
-    //     },
-    //     (error) => {
-    //       console.log('FAILED...', error);
-    //     },
-    //   );
-    //   setName('');
-    //   setEmail('');
-    //   setMessage('');
-    // }
+    setStatus('sending');
+    emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID || '',
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '',
+      templateParams,
+      { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '' }
+    ).then(
+      () => {
+        setStatus('success');
+        setName('');
+        setEmail('');
+        setMessage('');
+      },
+      (error) => {
+        console.error('Failed to send message:', error);
+        setStatus('error');
+      },
+    );
   };
 
   return (
@@ -65,6 +74,8 @@ function Contact() {
             <div className='form-flex'>
               <TextField
                 required
+                variant="filled"
+                InputProps={{ disableUnderline: true }}
                 id="outlined-required"
                 label="Your Name"
                 placeholder="What's your name?"
@@ -77,6 +88,8 @@ function Contact() {
               />
               <TextField
                 required
+                variant="filled"
+                InputProps={{ disableUnderline: true }}
                 id="outlined-required"
                 label="Email / Phone"
                 placeholder="How can I reach you?"
@@ -90,6 +103,8 @@ function Contact() {
             </div>
             <TextField
               required
+              variant="filled"
+              InputProps={{ disableUnderline: true }}
               id="outlined-multiline-static"
               label="Message"
               placeholder="Send me any inquiries or questions"
@@ -103,8 +118,14 @@ function Contact() {
               error={messageError}
               helperText={messageError ? "Please enter the message" : ""}
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={sendEmail}>
-              Send
+            {status === 'success' && (
+              <Alert severity="success" className="form-status">Thanks for reaching out! Your message has been sent.</Alert>
+            )}
+            {status === 'error' && (
+              <Alert severity="error" className="form-status">Sorry, your message couldn't be sent. Please email me directly instead.</Alert>
+            )}
+            <Button variant="contained" endIcon={<SendIcon />} onClick={sendEmail} disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send'}
             </Button>
           </Box>
         </div>

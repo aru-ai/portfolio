@@ -3,6 +3,8 @@ import opalengke from "../assets/images/opalengke.jpg";
 import landscapingClarksville from "../assets/images/landscaping-clarksville.jpg";
 import treeServiceClarksville from "../assets/images/tree-service-clarksville.jpg";
 import treeCareFranklin from "../assets/images/tree-care-franklin.jpg";
+import collingsHome from "../assets/images/collings-home.jpg";
+import durableSystems from "../assets/images/durable-systems.jpg";
 
 export type Project = {
   title: string;
@@ -30,10 +32,11 @@ export const projects: Project[] = [
   {
     title: "Collings Real Estate",
     description:
-      "Public website for Collings Real Estate, the Australian agency behind the Self Management Portal.",
+      "Website for Collings Real Estate, a Melbourne agency covering property sales, rentals, short stays, commercial property, and property management, with listings and a client portal entry point.",
     url: "https://www.collings.com.au/",
     domain: "collings.com.au",
-    tags: ["Website", "Real Estate"],
+    image: collingsHome,
+    tags: ["WordPress", "Elementor", "Real Estate"],
   },
   {
     title: "Opalengke",
@@ -47,10 +50,12 @@ export const projects: Project[] = [
   },
   {
     title: "Durable Systems",
-    description: "Company website for Durable Systems, an Australian business.",
+    description:
+      "Brand website for Durable Systems, an Australian architectural aluminium company, presenting its four product ranges: thermally broken windows and doors, insulated facade panels, aluminium battens, and architectural planters.",
     url: "https://durablesystems.com.au/",
     domain: "durablesystems.com.au",
-    tags: ["Website"],
+    image: durableSystems,
+    tags: ["WordPress", "Architecture"],
   },
   {
     title: "Clarksville TN Landscaping",

@@ -55,7 +55,6 @@ export const experience: ExperienceItem[] = [
     title: "BS Electronics Engineering",
     org: "Don Honorio Ventura State University",
     bullets: [
-      "Consistent Dean's Lister; President's Lister (1st Semester A.Y. 2022–2023).",
       "Thesis: \"Embedded TinyML for Classification of Rice Plant Diseases: Bacterial Blight, Brown Spot, and Rice Blast\".",
       "Licensed Electronics Engineer and Licensed Electronics Technician (2024).",
     ],

@@ -15,6 +15,7 @@ export const profile = {
     "enterprise Java backends",
     "React & Vue frontends",
     "end-to-end web apps",
+    "WordPress & Shopify sites",
     "AI-assisted workflows",
   ],
 };

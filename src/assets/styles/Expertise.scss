@@ -1,94 +1,103 @@
-.skills-container {
-    padding: 5% 10%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-
-    svg {
-        color: white;
-    }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
-  
-.skills-container .skills-grid {
+
+.skill-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  // Spotlight that follows the cursor (position set from Expertise.tsx).
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  > * {
+    position: relative;
+  }
+
+  &__icon {
+    width: 56px;
+    height: 56px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-}
-  
-.skills-container .skills-grid .skill {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    place-items: center;
+    margin-bottom: 22px;
+    border-radius: 16px;
+    font-size: 1.6rem;
+    color: #fff;
+    background: var(--gradient);
+    box-shadow: 0 10px 24px -8px var(--glow);
+  }
 
-    // Let the description fill the extra space so the tech stacks of
-    // cards in the same row start at the same height.
-    p {
-        flex-grow: 1;
-        margin-top: 0;
-    }
-}
-  
-.chip {
-    color: rgb(39, 40, 34) !important;
-    background-color: white !important;
-    font-size: 0.8rem !important;
-    height: 25px !important;
-  
-    span {
-        font-family: 'Courier Prime', monospace;
-        color: rgb(39, 40, 34);
-    }
-  
-    svg {
-        height: 15px !important;
-    }
+  h3 {
+    margin-bottom: 12px;
+    font-size: 1.35rem;
+  }
+
+  p {
+    margin-bottom: 22px;
+    color: var(--text-muted);
+  }
 }
 
-.flex-chips {
-    line-height: 2;
-    margin: 0.5;
-
-    .chip-title {
-        color: white;
-        padding-right: 10px;
-    }
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
 }
 
-.flex-chips .MuiChip-root {
-    margin-right: 0.5em;
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  transition: transform 0.2s var(--ease-out), border-color 0.2s ease;
+
+  svg {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
 }
 
-.flex-chips .MuiChip-outlined {
-    background-color: #e0e0e0;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
-}
+@media (max-width: 860px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
 
-.flex-chips .MuiChip-outlined span {
-    color: rgb(39, 40, 34);
-}
-
-@media screen {
-    @media (max-width: 768px) {
-        .skills-container {
-            display: block;
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-    
-        .skills-container .skills-grid {
-            display: initial;
-        }
-        
-        .skills-container .skills-grid .skill {
-            padding-bottom: 5%;
-        }
-    }
-
-    @media (max-width: 567px) {
-        .skills {
-            font-size: 12px;
-        }
-    }
+  .skill-card {
+    padding: 26px;
+  }
 }

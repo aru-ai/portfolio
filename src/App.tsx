@@ -1,44 +1,56 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import {
-  Main,
-  Timeline,
-  Expertise,
-  Project,
-  Contact,
   Navigation,
+  Hero,
+  TechMarquee,
+  Expertise,
+  Timeline,
+  Projects,
+  Contact,
   Footer,
 } from "./components";
-import FadeIn from './components/FadeIn';
-import './index.scss';
+import { Theme } from "./theme";
+import "./index.scss";
+
+function getInitialTheme(): Theme {
+  try {
+    return localStorage.getItem("theme") === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+}
 
 function App() {
-    const [mode, setMode] = useState<string>('dark');
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
-    const handleModeChange = () => {
-        if (mode === 'dark') {
-            setMode('light');
-        } else {
-            setMode('dark');
-        }
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove("dark", "light");
+    root.classList.add(theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      // Storage can be unavailable (e.g. private browsing); the theme still applies for this visit.
     }
+  }, [theme]);
 
-    useEffect(() => {
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-      }, []);
+  const toggleTheme = () => setTheme((current) => (current === "dark" ? "light" : "dark"));
 
-    return (
-    <div className={`main-container ${mode === 'dark' ? 'dark-mode' : 'light-mode'}`}>
-        <Navigation parentToChild={{mode}} modeChange={handleModeChange}/>
-        <FadeIn transitionDuration={700}>
-            <Main/>
-            <Expertise/>
-            <Timeline/>
-            <Project/>
-            <Contact/>
-        </FadeIn>
-        <Footer />
-    </div>
-    );
+  return (
+    <MotionConfig reducedMotion="user">
+      <Navigation theme={theme} onToggleTheme={toggleTheme} />
+      <main>
+        <Hero />
+        <TechMarquee />
+        <Expertise />
+        <Timeline />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+    </MotionConfig>
+  );
 }
 
 export default App;

@@ -1,70 +1,159 @@
-.contact_wrapper svg {
-  font-size: 1em;
-  vertical-align: middle;
-  margin-right: 5px;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.contact-info {
+  .section-heading {
+    margin-bottom: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 32px;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, transform 0.2s var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    color: #fff;
+    background: var(--gradient);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  &__value {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
 }
 
 .contact-form {
-  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
 
-  button {
-    float: right;
-    background-color: white;
-    color: #050f0b;
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
-  button:hover {
-    background-color: #5000ca;
-    color: white;
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
   }
 
+  // Restyle the MUI filled inputs to match the theme.
   .MuiFilledInput-root {
-    background-color: white !important;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    transition: border-color 0.2s ease;
+    background: var(--chip-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover,
+    &.Mui-focused {
+      background: var(--chip-bg);
+    }
+
+    &.Mui-focused {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    &.Mui-error {
+      border-color: #ef4444;
+    }
   }
 
-  .MuiFilledInput-root.Mui-focused {
-    border-color: #5000ca;
+  .MuiFilledInput-input {
+    color: var(--text);
+    font-family: var(--font-body);
+
+    &::placeholder {
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
   }
 
-  .MuiFilledInput-root.Mui-error {
-    border-color: #d32f2f;
-  }
+  .MuiInputLabel-root {
+    color: var(--text-muted);
+    font-family: var(--font-body);
 
-  .MuiInputLabel-root.Mui-focused:not(.Mui-error) {
-    color: #5000ca;
+    &.Mui-focused {
+      color: var(--accent);
+    }
+
+    &.Mui-error {
+      color: #ef4444;
+    }
   }
 
   .MuiFormHelperText-root {
-    margin-left: 2px;
+    margin-left: 4px;
+    font-family: var(--font-body);
   }
 
-  .form-status {
-    margin-bottom: 15px;
+  .MuiAlert-root {
+    border-radius: 12px;
   }
 }
 
-label {
-  font-family: 'DomaineDispNar-Medium', sans-serif;
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
 }
 
-.form-flex {
-  display: flex;
-  gap: 15px;
-  padding-bottom: 15px;
-}
+@media (max-width: 560px) {
+  .contact-form {
+    padding: 22px;
 
-.form-flex .MuiFormControl-root {
-  width: 100%;
-}
-
-form {
-  width: 100% !important;
-}
-
-.body-form {
-  width: 100% !important;
-  margin-bottom: 15px !important;
+    &__row {
+      grid-template-columns: 1fr;
+    }
+  }
 }

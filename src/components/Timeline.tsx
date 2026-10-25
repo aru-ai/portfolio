@@ -1,61 +1,74 @@
 import React from "react";
-import '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
-import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
-import '../assets/styles/Timeline.scss'
+import { motion } from "framer-motion";
+import { FiBriefcase } from "react-icons/fi";
+import { RiGraduationCapLine } from "react-icons/ri";
+import { experience } from "../data/experience";
+import SectionHeading from "./SectionHeading";
+import "../assets/styles/Timeline.scss";
 
 function Timeline() {
   return (
-    <div id="history">
-      <div className="items-container">
-        <h1>Career History</h1>
-        <VerticalTimeline>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
-            contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="April 2026 - present"
-            iconStyle={{ background: '#ff8c00', color: 'rgb(34, 37, 40)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Java EE Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Accenture</h4>
-            <p>Develop and maintain enterprise applications using Java EE (Jakarta EE) technologies such as JPA, CDI, EJB, and JAX-RS. Design and integrate RESTful web services and backend modules for client-facing systems, write unit and integration tests, and collaborate in Agile teams with business analysts, QA, and client stakeholders.</p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2024 - 2026"
-            iconStyle={{ background: '#ff8c00', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Software Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Apollo Software Corporation</h4>
-            <p>Built and maintained enterprise retail software using Java, Spring Boot, SQL (MySQL, H2), and Freemarker, with responsive front ends in Vue.js and Quasar. Improved release reliability with JUnit and Cypress tests, and containerized and deployed applications with Docker on Ubuntu Linux.</p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2022 - present"
-            iconStyle={{ background: '#ff8c00', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Freelance Full-Stack Developer</h3>
-            <p>Build and maintain CRM portals for clients using React and Django. Build and customize WordPress (Elementor) websites, landing pages, and Shopify stores, and develop REST APIs and database-backed features for managing customer records and user access.</p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="2019 - 2023"
-            iconStyle={{ background: '#ff8c00', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faGraduationCap} />}
-          >
-            <h3 className="vertical-timeline-element-title">BS Electronics Engineering</h3>
-            <h4 className="vertical-timeline-element-subtitle">Don Honorio Ventura State University</h4>
-            <p>Consistent Dean's Lister; President's Lister (1st Semester A.Y. 2022–2023). Thesis: "Embedded TinyML for Classification of Rice Plant Diseases." Licensed Electronics Engineer and Licensed Electronics Technician (2024).</p>
-          </VerticalTimelineElement>
-        </VerticalTimeline>
+    <section id="experience" className="section section--alt timeline-section">
+      <div className="section__inner">
+        <SectionHeading
+          eyebrow="Career"
+          title="Experience & Education"
+          subtitle="Where I've worked and what I've built along the way."
+        />
+        <div className="timeline">
+          <motion.div
+            className="timeline__line"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+          />
+          {experience.map((item, index) => {
+            const side = index % 2 === 0 ? "left" : "right";
+            const Icon = item.type === "work" ? FiBriefcase : RiGraduationCapLine;
+            return (
+              <div className={`timeline__item timeline__item--${side}`} key={`${item.title}-${item.period}`}>
+                <motion.div
+                  className={`timeline__dot${item.current ? " is-current" : ""}`}
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+                >
+                  <Icon />
+                </motion.div>
+                <motion.article
+                  className="timeline__card"
+                  initial={{ opacity: 0, x: side === "left" ? -40 : 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <span className="timeline__period">
+                    {item.period}
+                    {item.current && <span className="timeline__badge">Current</span>}
+                  </span>
+                  <h3>{item.title}</h3>
+                  {item.org && <p className="timeline__org">{item.org}</p>}
+                  <ul className="timeline__bullets">
+                    {item.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                  <div className="tag-row">
+                    {item.tags.map((tag) => (
+                      <span className="tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

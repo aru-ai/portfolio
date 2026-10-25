@@ -1,0 +1,140 @@
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  transform-origin: 0 50%;
+  z-index: 1001;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  &--scrolled,
+  &--open {
+    background: var(--nav-bg);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  &__inner {
+    width: min(var(--container), calc(100% - 48px));
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  &__logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.45rem;
+    letter-spacing: -0.02em;
+
+    span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 6px;
+  }
+
+  &__link {
+    position: relative;
+    padding: 8px 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: 10px;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &.is-active {
+      color: var(--text);
+    }
+  }
+
+  &__underline {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--gradient);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__theme-icon {
+    display: inline-flex;
+  }
+
+  &__burger {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px 24px;
+  background: var(--bg);
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 8px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  &__index {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__burger {
+    display: inline-flex;
+  }
+
+  .nav__inner {
+    width: calc(100% - 32px);
+  }
+}

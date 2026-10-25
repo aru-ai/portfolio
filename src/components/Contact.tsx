@@ -1,136 +1,172 @@
-import React, { useRef, useState } from 'react';
-import '../assets/styles/Contact.scss';
-import emailjs from '@emailjs/browser';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
+import Alert from "@mui/material/Alert";
+import TextField from "@mui/material/TextField";
+import { motion } from "framer-motion";
+import { FiLinkedin, FiMail, FiMapPin, FiSend } from "react-icons/fi";
+import { profile } from "../data/profile";
+import Reveal from "./Reveal";
+import SectionHeading from "./SectionHeading";
+import "../assets/styles/Contact.scss";
+
+type Status = "idle" | "sending" | "success" | "error";
 
 function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
 
-  const [nameError, setNameError] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [messageError, setMessageError] = useState<boolean>(false);
+  const [status, setStatus] = useState<Status>("idle");
 
-  const form = useRef();
+  const sendEmail = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+    setNameError(name === "");
+    setEmailError(email === "");
+    setMessageError(message === "");
 
-  const sendEmail = (e: any) => {
-    e.preventDefault();
-
-    setNameError(name === '');
-    setEmailError(email === '');
-    setMessageError(message === '');
-
-    if (name === '' || email === '' || message === '') {
+    if (name === "" || email === "" || message === "") {
       return;
     }
 
-    const templateParams = {
-      name: name,
-      email: email,
-      message: message
-    };
+    const templateParams = { name, email, message };
 
-    setStatus('sending');
-    emailjs.send(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID || '',
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '',
-      templateParams,
-      { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '' }
-    ).then(
-      () => {
-        setStatus('success');
-        setName('');
-        setEmail('');
-        setMessage('');
-      },
-      (error) => {
-        console.error('Failed to send message:', error);
-        setStatus('error');
-      },
-    );
+    setStatus("sending");
+    emailjs
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID || "",
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "" }
+      )
+      .then(
+        () => {
+          setStatus("success");
+          setName("");
+          setEmail("");
+          setMessage("");
+        },
+        (error) => {
+          console.error("Failed to send message:", error);
+          setStatus("error");
+        }
+      );
+  };
+
+  const fieldProps = {
+    variant: "filled" as const,
+    fullWidth: true,
+    InputProps: { disableUnderline: true },
   };
 
   return (
-    <div id="contact">
-      <div className="items-container">
-        <div className="contact_wrapper">
-          <h1>Contact Me</h1>
-          <p>Got a project waiting to be realized? Let's collaborate and make it happen! You can also email me at <a href="mailto:johnlloydenciomacalino07@gmail.com">johnlloydenciomacalino07@gmail.com</a>.</p>
-          <Box
-            ref={form}
-            component="form"
-            noValidate
-            autoComplete="off"
-            className='contact-form'
-          >
-            <div className='form-flex'>
+    <section id="contact" className="section section--alt">
+      <div className="section__inner contact-grid">
+        <div className="contact-info">
+          <SectionHeading
+            eyebrow="Contact"
+            title="Let's build something together"
+            subtitle="Got a project waiting to be realized? Send me a message and I'll get back to you as soon as I can."
+          />
+          <Reveal delay={0.1}>
+            <ul className="contact-info__list">
+              <li>
+                <a className="contact-item" href={`mailto:${profile.email}`}>
+                  <span className="contact-item__icon">
+                    <FiMail />
+                  </span>
+                  <span className="contact-item__text">
+                    <span className="contact-item__label">Email</span>
+                    <span className="contact-item__value">{profile.email}</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a className="contact-item" href={profile.linkedin} target="_blank" rel="noreferrer">
+                  <span className="contact-item__icon">
+                    <FiLinkedin />
+                  </span>
+                  <span className="contact-item__text">
+                    <span className="contact-item__label">LinkedIn</span>
+                    <span className="contact-item__value">John Lloyd Macalino</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <div className="contact-item">
+                  <span className="contact-item__icon">
+                    <FiMapPin />
+                  </span>
+                  <span className="contact-item__text">
+                    <span className="contact-item__label">Location</span>
+                    <span className="contact-item__value">{profile.location}</span>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.15}>
+          <form className="contact-form" noValidate autoComplete="off" onSubmit={sendEmail}>
+            <div className="contact-form__row">
               <TextField
+                {...fieldProps}
                 required
-                variant="filled"
-                InputProps={{ disableUnderline: true }}
-                id="outlined-required"
                 label="Your Name"
                 placeholder="What's your name?"
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                onChange={(event) => setName(event.target.value)}
                 error={nameError}
                 helperText={nameError ? "Please enter your name" : ""}
               />
               <TextField
+                {...fieldProps}
                 required
-                variant="filled"
-                InputProps={{ disableUnderline: true }}
-                id="outlined-required"
                 label="Email / Phone"
                 placeholder="How can I reach you?"
                 value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={(event) => setEmail(event.target.value)}
                 error={emailError}
                 helperText={emailError ? "Please enter your email or phone number" : ""}
               />
             </div>
             <TextField
+              {...fieldProps}
               required
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              id="outlined-multiline-static"
               label="Message"
               placeholder="Send me any inquiries or questions"
               multiline
-              rows={10}
-              className="body-form"
+              rows={7}
               value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
+              onChange={(event) => setMessage(event.target.value)}
               error={messageError}
               helperText={messageError ? "Please enter the message" : ""}
             />
-            {status === 'success' && (
-              <Alert severity="success" className="form-status">Thanks for reaching out! Your message has been sent.</Alert>
+            {status === "success" && (
+              <Alert severity="success">Thanks for reaching out! Your message has been sent.</Alert>
             )}
-            {status === 'error' && (
-              <Alert severity="error" className="form-status">Sorry, your message couldn't be sent. Please email me directly instead.</Alert>
+            {status === "error" && (
+              <Alert severity="error">Sorry, your message couldn't be sent. Please email me directly instead.</Alert>
             )}
-            <Button variant="contained" endIcon={<SendIcon />} onClick={sendEmail} disabled={status === 'sending'}>
-              {status === 'sending' ? 'Sending...' : 'Send'}
-            </Button>
-          </Box>
-        </div>
+            <div className="contact-form__footer">
+              <motion.button
+                type="submit"
+                className="btn btn--primary"
+                disabled={status === "sending"}
+                whileTap={{ scale: 0.97 }}
+              >
+                {status === "sending" ? "Sending..." : "Send Message"} <FiSend />
+              </motion.button>
+            </div>
+          </form>
+        </Reveal>
       </div>
-    </div>
+    </section>
   );
 }
 
